@@ -18,13 +18,13 @@ def game(Z):
     def print_board(a):
         for counter in range(0,10):
             for counter_1 in range(0,10):
-                print(mine_full[int(str(counter)+str(counter_1))],end='')
+                print(mine_full[counter*10+counter_1],end='')
             print('')
         return mine_full
     def print_full(a):
         for counter in range(0,10):
             for counter_1 in range(0,10):
-                if mine[int(str(counter)+str(counter_1))] in mine_list:
+                if mine[counter*10+counter_1] in mine_list:
                     print('M',end=' ')
                 else:
                     print(' ',end=' ')
@@ -32,155 +32,142 @@ def game(Z):
     def print_index(a):
         for counter in range(0,10):
             for counter_1 in range(0,10):
-                print(mine[int(str(counter)+str(counter_1))],end='')
+                print(mine[counter*10+counter_1],end='')
             print('')
         return mine_full
     def check(a,b):
         for counter in range(len(mine_list)):
             if mine[counter] in mine_list:
                 print('a')
-        check_output=str(mine[int(str(a)+str(b))])+'     '+str(a)+','+str(b)
+        check_output=str(mine[a*10+b])+'     '+str(a)+','+str(b)
         return check_output
     def mine_check(a, b):
-        if mine[int(str(a)+str(b))] in mine_list:
-            mine_full[int(str(a)+str(b))] = 'M'
+        if mine[a*10+b] in mine_list:
+            mine_full[a*10+b] = 'M'
             while True:
                 print('GAME OVER PERSS R TO RESTART')
                 if input('').upper() == 'R':
                     game(Z)
         else:
-            mine_full[int(str(a)+str(b))] = ' '
+            mine_full[a*10+b] = ' '
         return mine_full
     def mine_fill(a,b):
-        if a == '0' and mine_full[int(str(a)+str(b))] == ' ':
-            if b == '0' and mine_full[int(str(a)+str(b))] == ' ':
-                b=1
-                if mine[int(str(a)+str(b))] not in mine_list:
-                    mine_full[int(str(a)+str(b))]=' '
-                a,b=1,0
-                if mine[int(str(a)+str(b))] not in mine_list:
-                    mine_full[int(str(a)+str(b))]=' '
-                a,b=1,1
-                if mine[int(str(a)+str(b))] not in mine_list:
-                    mine_full[int(str(a)+str(b))]=' '
+        a_1,a_2,a_3,b_1,b_2,b_3=a,a-1,a+1,b,b-1,b+1
+        if a == 0 and mine_full[a*10+b] == ' ':#done
+            if b == 0 and mine_full[a*10+b] == ' ':
+                if mine[a*10+b] not in mine_list:
+                    mine_full[a*10+b]=' '
+                if mine[a*10+b_3] not in mine_list:
+                    mine_full[a*10+b_3]=' '
+                if mine[a_3*10+b] not in mine_list:
+                    mine_full[a_3*10+b]=' '
+                if mine[a_3*10+b_3] not in mine_list:
+                    mine_full[a_3*10+b_3]=' '
                 return mine_full
-            elif b == '9' and mine_full[int(str(a)+str(b))] == ' ':
-                b=8
-                if mine[int(str(a)+str(b))] not in mine_list:
-                    mine_full[int(str(a)+str(b))]=' '
-                a,b=1,9
-                if mine[int(str(a)+str(b))] not in mine_list:
-                    mine_full[int(str(a)+str(b))]=' '
-                a,b=1,8
-                if mine[int(str(a)+str(b))] not in mine_list:
-                    mine_full[int(str(a)+str(b))]=' '
-                return mine_full
-            else:
-                a=1
-                if mine[int(str(a)+str(b))] not in mine_list:
-                    mine_full[int(str(a)+str(b))]=' '
-                a=0
-                if mine[int(str(a)+str(b))] not in mine_list:
-                    mine_full[int(str(a)+str(b))]=' '
-                b,a=int(b)-1,0
-                if mine[int(str(a)+str(b))] not in mine_list:
-                    mine_full[int(str(a)+str(b))]=' '
-                b,a=b,1
-                if mine[int(str(a)+str(b))] not in mine_list:
-                    mine_full[int(str(a)+str(b))]=' '
-                b,a=int(b)+2,0
-                if mine[int(str(a)+str(b))] not in mine_list:
-                    mine_full[int(str(a)+str(b))]=' '
-                b,a=b,1
-                if mine[int(str(a)+str(b))] not in mine_list:
-                    mine_full[int(str(a)+str(b))]=' '
-                return mine_full
-        elif a == '9' and mine_full[int(str(a)+str(b))] == ' ':
-            if b == '0' and mine_full[int(str(a)+str(b))] == ' ':
-                b=1
-                if mine[int(str(a)+str(b))] not in mine_list:
-                    mine_full[int(str(a)+str(b))]=' '
-                a,b=8,0
-                if mine[int(str(a)+str(b))] not in mine_list:
-                    mine_full[int(str(a)+str(b))]=' '
-                a,b=8,1
-                if mine[int(str(a)+str(b))] not in mine_list:
-                    mine_full[int(str(a)+str(b))]=' '
-                return mine_full
-            elif b == '9' and mine_full[int(str(a)+str(b))] == ' ':
-                b=8
-                if mine[int(str(a)+str(b))] not in mine_list:
-                    mine_full[int(str(a)+str(b))]=' '
-                a,b=8,9
-                if mine[int(str(a)+str(b))] not in mine_list:
-                    mine_full[int(str(a)+str(b))]=' '
-                a,b=8,8
-                if mine[int(str(a)+str(b))] not in mine_list:
-                    mine_full[int(str(a)+str(b))]=' '
+            elif b == 9 and mine_full[a*10+b] == ' ':
+                if mine[a*10+b] not in mine_list:
+                    mine_full[a*10+b]=' '
+                if mine[a*10+b_2] not in mine_list:
+                    mine_full[a*10+b_2]=' '
+                if mine[a_3*10+b_1] not in mine_list:
+                    mine_full[a_3*10+b_1]=' '
+                if mine[a_3*10+b_2] not in mine_list:
+                    mine_full[a_3*10+b_2]=' '
                 return mine_full
             else:
-                a=8
-                if mine[int(str(a)+str(b))] not in mine_list:
-                    mine_full[int(str(a)+str(b))]=' '
-                a=9
-                if mine[int(str(a)+str(b))] not in mine_list:
-                    mine_full[int(str(a)+str(b))]=' '
-                b,a=int(b)-1,9
-                if mine[int(str(a)+str(b))] not in mine_list:
-                    mine_full[int(str(a)+str(b))]=' '
-                b,a=b,8
-                if mine[int(str(a)+str(b))] not in mine_list:
-                    mine_full[int(str(a)+str(b))]=' '
-                b,a=int(b)+2,9
-                if mine[int(str(a)+str(b))] not in mine_list:
-                    mine_full[int(str(a)+str(b))]=' '
-                b,a=b,8
-                if mine[int(str(a)+str(b))] not in mine_list:
-                    mine_full[int(str(a)+str(b))]=' '
+                if mine[a*10+b] not in mine_list:
+                    mine_full[a*10+b]=' '
+                if mine[a_3*10+b] not in mine_list:
+                    mine_full[a_3*10+b]=' '
+                if mine[a*10+b] not in mine_list:
+                    mine_full[a*10+b]=' '
+                if mine[a_1*10+b_2] not in mine_list:
+                    mine_full[a_1*10+b_2]=' '
+                if mine[a_3*10+b_2] not in mine_list:
+                    mine_full[a_3*10+b_2]=' '
+                if mine[a_1*10+b_3] not in mine_list:
+                    mine_full[a_1*10+b_3]=' '
+                if mine[a_3*10+b_3] not in mine_list:
+                    mine_full[a_3*10+b_3]=' '
+                return mine_full
+        elif a == 9 and mine_full[a*10+b] == ' ':#done
+            if b == 0 and mine_full[a*10+b] == ' ':
+                if mine[a*10+b_3] not in mine_list:
+                    mine_full[a*10+b_3]=' '
+                if mine[a_2*10+b_1] not in mine_list:
+                    mine_full[a_2*10+b_1]=' '
+                if mine[a_2*10+b_3] not in mine_list:
+                    mine_full[a_2*10+b_3]=' '
+                return mine_full
+            elif b == 9 and mine_full[a*10+b] == ' ':
+                if mine[a*10+b_2] not in mine_list:
+                    mine_full[a*10+b_2]=' '
+                if mine[a_2*10+b_1] not in mine_list:
+                    mine_full[a_2*10+b_1]=' '
+                if mine[a_2*10+b_2] not in mine_list:
+                    mine_full[a_2*10+b_2]=' '
+                return mine_full
+            else:
+                if mine[a_2*10+b_1] not in mine_list:
+                    mine_full[a_2*10+b_1]=' '
+                if mine[a_1*10+b_1] not in mine_list:
+                    mine_full[a_1*10+b_1]=' '
+                if mine[a_1*10+b_2] not in mine_list:
+                    mine_full[a_1*10+b_2]=' '
+                if mine[a_2*10+b_2] not in mine_list:
+                    mine_full[a_2*10+b_2]=' '
+                if mine[a_1*10+b_3] not in mine_list:
+                    mine_full[a_1*10+b_3]=' '
+                if mine[a_2*10+b_3] not in mine_list:
+                    mine_full[a_2*10+b_3]=' '
                 return mine_full
         else:
-            if b == '0' and mine_full[int(str(a)+str(b))] == ' ':
-                b=1
-                if mine[int(str(a)+str(b))] not in mine_list:
-                    mine_full[int(str(a)+str(b))]=' '
-                b=0
-                if mine[int(str(a)+str(b))] not in mine_list:
-                    mine_full[int(str(a)+str(b))]=' '
-                a,b=int(a)-1,0
-                if mine[int(str(a)+str(b))] not in mine_list:
-                    mine_full[int(str(a)+str(b))]=' '
-                a,b=a,1
-                if mine[int(str(a)+str(b))] not in mine_list:
-                    mine_full[int(str(a)+str(b))]=' '
-                a,b=int(a)+2,0
-                if mine[int(str(a)+str(b))] not in mine_list:
-                    mine_full[int(str(a)+str(b))]=' '
-                a,b=a,1
-                if mine[int(str(a)+str(b))] not in mine_list:
-                    mine_full[int(str(a)+str(b))]=' '
+            if b == 0 and mine_full[a*10+b] == ' ':
+                if mine[a_1*10+b_3] not in mine_list:
+                    mine_full[a_1*10+b_3]=' '
+                if mine[a_1*10+b_1] not in mine_list:
+                    mine_full[a_1*10+b_1]=' '
+                if mine[a_2*10+b_1] not in mine_list:
+                    mine_full[a_2*10+b_1]=' '
+                if mine[a_2*10+b_3] not in mine_list:
+                    mine_full[a_2*10+b_3]=' '
+                if mine[a_3*10+b_1] not in mine_list:
+                    mine_full[a_3*10+b_1]=' '
+                if mine[a_3*10+b_3] not in mine_list:
+                    mine_full[a_3*10+b_3]=' '
                 return mine_full
-            elif b == '9' and mine_full[int(str(a)+str(b))] == ' ':
-                b=8
-                if mine[int(str(a)+str(b))] not in mine_list:
-                    mine_full[int(str(a)+str(b))]=' '
-                b=9
-                if mine[int(str(a)+str(b))] not in mine_list:
-                    mine_full[int(str(a)+str(b))]=' '
-                a,b=int(a)-1,9
-                if mine[int(str(a)+str(b))] not in mine_list:
-                    mine_full[int(str(a)+str(b))]=' '
-                a,b=a,8
-                if mine[int(str(a)+str(b))] not in mine_list:
-                    mine_full[int(str(a)+str(b))]=' '
-                a,b=int(a)+2,9
-                if mine[int(str(a)+str(b))] not in mine_list:
-                    mine_full[int(str(a)+str(b))]=' '
-                a,b=a,8
-                if mine[int(str(a)+str(b))] not in mine_list:
-                    mine_full[int(str(a)+str(b))]=' '
+            elif b == 9 and mine_full[a*10+b] == ' ':
+                if mine[a_1*10+b_2] not in mine_list:
+                    mine_full[a_1*10+b_2]=' '
+                if mine[a_1*10+b_1] not in mine_list:
+                    mine_full[a_1*10+b_1]=' '
+                if mine[a_2*10+b_1] not in mine_list:
+                    mine_full[a_2*10+b_1]=' '
+                if mine[a_2*10+b_2] not in mine_list:
+                    mine_full[a_2*10+b_2]=' '
+                if mine[a_3*10+b_1] not in mine_list:
+                    mine_full[a_3*10+b_1]=' '
+                if mine[a_3*10+b_2] not in mine_list:
+                    mine_full[a_3*10+b_2]=' '
                 return mine_full
             else:
-                print('')
+                if mine[a_1*10+b_3] not in mine_list:
+                    mine_full[a_1*10+b_3]=' '
+                if mine[a_1*10+b_2] not in mine_list:
+                    mine_full[a_1*10+b_2]=' '
+                if mine[a_3*10+b_1] not in mine_list:
+                    mine_full[a_3*10+b_1]=' '
+                if mine[a_3*10+b_2] not in mine_list:
+                    mine_full[a_3*10+b_2]=' '
+                if mine[a_3*10+b_3] not in mine_list:
+                    mine_full[a_3*10+b_3]=' '
+                if mine[a_2*10+b_1] not in mine_list:
+                    mine_full[a_2*10+b_1]=' '
+                if mine[a_2*10+b_3] not in mine_list:
+                    mine_full[a_2*10+b_3]=' '
+                if mine[a_2*10+b_2] not in mine_list:
+                    mine_full[a_2*10+b_2]=' '
+                return mine_full
     def win_check(a):
         win_counter=0
         for counter in range(100):
@@ -194,11 +181,10 @@ def game(Z):
     mine,mine_full=start(0)
     mine,mine_list=place_mines(int(input('input no of mines')))
     while True:
-        print_index(0)
         mine_full=print_board(0)
         win_check(0)
-        a=input('input coordanites')
-        b=input('input coordanates')
+        a=int(input('input coordanites'))
+        b=int(input('input coordanates'))
         mine_full=mine_check(a,b)
         mine_full=mine_fill(a,b)
 game(0)
